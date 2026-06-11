@@ -15,9 +15,3 @@ conexion = mysql.connector.connect(
 print("Conectado correctamente")
 
 cursor = conexion.cursor()
-cursor.execute("SELECT * FROM actividad")
-
-for fila in cursor:
-    print(fila)
-
-conexion.close()
