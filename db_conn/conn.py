@@ -16,4 +16,4 @@ def obtener_conexión():
 
 print("Conectado correctamente")
 
-cursor = conexion.cursor()
+obtener_conexión()
