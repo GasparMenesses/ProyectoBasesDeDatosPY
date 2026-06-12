@@ -1,4 +1,4 @@
-from Backend.db_conn.conn import obtener_conexión
+from db_conn.conn import obtener_conexión
 
 try:
     conexion = obtener_conexión()
