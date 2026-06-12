@@ -1,7 +1,8 @@
-from db_conn.conn import conexion
-from db_conn.conn import cursor
+from db_conn.conn import obtener_conexión
 
 try:
+    conexion = obtener_conexión()
+    cursor = conexion.cursor()
     cursor.execute("SELECT * FROM actividad")
 
     for fila in cursor:
@@ -11,5 +12,5 @@ except Exception as e:
     print("Error al conectar a la base de datos:", e)
 
 finally:
-
+    cursor.close()
     conexion.close()
