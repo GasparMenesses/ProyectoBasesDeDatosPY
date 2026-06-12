@@ -1,4 +1,4 @@
-from db_conn.conn import obtener_conexión
+from Backend.db_conn.conn import obtener_conexión
 
 try:
     conexion = obtener_conexión()
@@ -14,3 +14,4 @@ except Exception as e:
 finally:
     cursor.close()
     conexion.close()
+
