@@ -4,7 +4,7 @@ import mysql.connector
 
 load_dotenv()
 
-def obtener_conexión():
+def obtener_conexion():
     conexion = mysql.connector.connect(
         host=os.getenv("DB_HOST"),
         port=os.getenv("DB_PORT"),
@@ -16,4 +16,4 @@ def obtener_conexión():
 
 print("Conectado correctamente")
 
-obtener_conexión()
+obtener_conexion()

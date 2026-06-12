@@ -1,7 +1,7 @@
-from db_conn.conn import obtener_conexión
+from db_conn.conn import obtener_conexion
 
 try:
-    conexion = obtener_conexión()
+    conexion = obtener_conexion()
     cursor = conexion.cursor()
     cursor.execute("SELECT * FROM actividad")
 
