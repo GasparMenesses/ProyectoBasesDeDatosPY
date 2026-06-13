@@ -1,11 +1,12 @@
 from db_conn.conn import obtener_conexion
 from modelado.estudiante import Estudiante
 
+
 def listar_estudiantes():
     conexion = obtener_conexion()
     cursor = conexion.cursor()
-
-    cursor.execute("""
+    # Consulta para obtener todos los estudiantes
+    cursor.execute(""" 
         SELECT documento,
                nombre,
                apellido,
@@ -16,16 +17,16 @@ def listar_estudiantes():
     """)
 
     filas = cursor.fetchall()
-    estudiantes = []
+    estudiantes = [] # Lista donde se guardarán los objetos Estudiante
 
-    for fila in filas:
+    for fila in filas: # Recorrer cada fila y convertirla en un objeto Estudiante
         estudiante = Estudiante(
-            fila[0],
-            fila[1],
-            fila[2],
-            fila[3],
-            fila[4],
-            fila[5]
+            fila[0], #documento
+            fila[1], #nombre
+            fila[2], #apellido
+            fila[3], #correo electronico
+            fila[4], #carrera
+            fila[5] #facultad
         )
         estudiantes.append(estudiante)
 
