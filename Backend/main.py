@@ -1,4 +1,4 @@
-from db_conn.conn import obtener_conexion
+"""from db_conn.conn import obtener_conexion
 
 try:
     conexion = obtener_conexion()
@@ -13,5 +13,10 @@ except Exception as e:
 
 finally:
     cursor.close()
-    conexion.close()
+    conexion.close() """
+
+from flask import Flask, jsonify
+
+from asistencia_gestion import listar_asistencias, registrar_asistencia
+from disciplina gestion import listar_disciplinas, crear_disciplinas
 

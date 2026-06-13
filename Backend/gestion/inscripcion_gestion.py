@@ -1,6 +1,5 @@
 from db_conn.conn import obtener_conexion
-from modelado.inscripcion import Inscripcion
-
+from Backend.modelado.Inscripción import Inscripcion
 
 # Listar todas las inscripciones
 def listar_inscripciones():
@@ -29,7 +28,6 @@ def listar_inscripciones():
             fila[3],
             fila[4]
         )
-
         inscripciones.append(inscripcion)
 
     cursor.close()
@@ -37,14 +35,15 @@ def listar_inscripciones():
 
     return inscripciones
 
-
 # Inscribir a un estudiante en una actividad
 def inscribir_estudiante(est_documento, id_actividad):
-
-    conexion = obtener_conexion()
-    cursor = conexion.cursor()
+    conexion = None
+    cursor = None
 
     try:
+        conexion = obtener_conexion()
+        cursor = conexion.cursor()
+
         # Buscar la actividad
         cursor.execute("""
             SELECT cupo_maximo, estado
@@ -74,9 +73,7 @@ def inscribir_estudiante(est_documento, id_actividad):
               AND id_actividad = %s
         """, (est_documento, id_actividad))
 
-        ya_inscripto = cursor.fetchone()
-
-        if ya_inscripto is not None:
+        if cursor.fetchone() is not None:
             print("El estudiante ya está inscripto en esta actividad.")
             return
 
@@ -96,7 +93,6 @@ def inscribir_estudiante(est_documento, id_actividad):
         else:
             estado_inscripcion = "lista_espera"
 
-        # Insertar inscripción
         cursor.execute("""
             INSERT INTO inscripcion
             (est_documento, id_actividad, estado, fecha_inscripcion)
@@ -104,13 +100,81 @@ def inscribir_estudiante(est_documento, id_actividad):
         """, (est_documento, id_actividad, estado_inscripcion))
 
         conexion.commit()
-
         print(f"Inscripción realizada. Estado: {estado_inscripcion}")
 
     except Exception as e:
-        conexion.rollback()
+        if conexion:
+            conexion.rollback()
         print("Error al inscribir estudiante:", e)
 
     finally:
-        cursor.close()
-        conexion.close()
+        if cursor:
+            cursor.close()
+        if conexion:
+            conexion.close()
+
+def cancelar_inscripcion(id_inscripcion):
+    conexion = None
+    cursor = None
+
+    try:
+        conexion = obtener_conexion()
+        cursor = conexion.cursor()
+
+        # Verificar que la inscripción exista
+        cursor.execute("""
+            SELECT estado, id_actividad
+            FROM inscripcion
+            WHERE id_inscripcion = %s
+        """, (id_inscripcion,))
+
+        inscripcion = cursor.fetchone()
+
+        if inscripcion is None:
+            print("La inscripción no existe.")
+            return
+
+        estado_actual = inscripcion[0]
+        id_actividad = inscripcion[1]
+
+        # Cancelar la inscripción
+        cursor.execute("""
+            UPDATE inscripcion
+            SET estado = 'cancelada'
+            WHERE id_inscripcion = %s
+        """, (id_inscripcion,))
+
+        # Si era confirmada, promover el primero de lista de espera
+        if estado_actual == "confirmada":
+            cursor.execute("""
+                SELECT id_inscripcion
+                FROM inscripcion
+                WHERE id_actividad = %s
+                  AND estado = 'lista_espera'
+                ORDER BY fecha_inscripcion ASC
+                LIMIT 1
+            """, (id_actividad,))
+
+            siguiente = cursor.fetchone()
+
+            if siguiente is not None:
+                cursor.execute("""
+                    UPDATE inscripcion
+                    SET estado = 'confirmada'
+                    WHERE id_inscripcion = %s
+                """, (siguiente[0],))
+                print("Se promovió al siguiente estudiante de lista de espera.")
+
+        conexion.commit()
+        print("Inscripción cancelada correctamente.")
+
+    except Exception as e:
+        if conexion:
+            conexion.rollback()
+        print("Error al cancelar inscripción:", e)
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conexion:
+            conexion.close()

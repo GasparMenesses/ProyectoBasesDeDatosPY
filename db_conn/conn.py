@@ -3,6 +3,7 @@ import os
 import mysql.connector
 from mysql.connector import Error
 import time
+
 def obtener_conexion():
     for i in range (4):
         try:
@@ -19,7 +20,7 @@ def obtener_conexion():
                 return conexion
 
         except Error as e:
-            print(f"Intento {i + 1}: Iniciando ({e})")
+            print(f"Intento {i + 1}: Iniciando. ({e})")
             time.sleep(5)
 
-    raise Exception("No se pudo volver a conectar. Intente más tarde")
+    raise Exception("No sé pudo volver a conectar. Intente más tarde")

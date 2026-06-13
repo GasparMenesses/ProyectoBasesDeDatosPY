@@ -1,6 +1,5 @@
 from db_conn.conn import obtener_conexion
-from modelado.asistencia import Asistencia
-
+from Backend.modelado.Asistencia import Asistencia
 
 # Listar todas las asistencias registradas
 def listar_asistencias():
