@@ -137,14 +137,13 @@ def cancelar_inscripcion(id_inscripcion):
         estado_actual = inscripcion[0]
         id_actividad = inscripcion[1]
 
-        # Cancelar la inscripción
+        # Eliminar la inscripción cancelada
         cursor.execute("""
-            UPDATE inscripcion
-            SET estado = 'cancelada'
+            DELETE FROM inscripcion
             WHERE id_inscripcion = %s
         """, (id_inscripcion,))
 
-        # Si era confirmada, promover el primero de lista de espera
+        # Si era confirmada, promover al primero en lista de espera
         if estado_actual == "confirmada":
             cursor.execute("""
                 SELECT id_inscripcion
@@ -159,9 +158,11 @@ def cancelar_inscripcion(id_inscripcion):
 
             if siguiente is not None:
                 cursor.execute("""
-                    DELETE FROM inscripcion
-                    WHERE id_inscripcion = %s       
+                    UPDATE inscripcion
+                    SET estado = 'confirmada'
+                    WHERE id_inscripcion = %s
                 """, (siguiente[0],))
+
                 print("Se promovió al siguiente estudiante de lista de espera.")
 
         conexion.commit()
