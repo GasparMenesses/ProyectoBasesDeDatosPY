@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>CGG</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="logo">
+            <h1>CGG</h1>
+            <p>Sistema de Gestión de Actividades Deportivas Universitarias</p>
+        </div>
+
+        <nav>
+            <a href="/">🏠 Inicio</a>
+            <a href="/estudiantes">👩‍🎓 Estudiantes</a>
+            <a href="/actividades">🏀 Actividades</a>
+            <a href="/inscripciones">📝 Inscripciones</a>
+            <a href="/asistencias">✅ Asistencias</a>
+            <a href="/reportes">📊 Reportes</a>
+        </nav>
+    </aside>
+
+    <main class="content">
+        {% block contenido %}
+        {% endblock %}
+    </main>
+
+</body>
+</html>
