@@ -1,4 +1,4 @@
-class espacio:
+class Espacio:
     def __init__(self, id_espacio, nombre, ubicacion):
         self.id_espacio = id_espacio
         self.nombre = nombre

@@ -1,4 +1,4 @@
-class inscripcion:
+class Inscripcion:
 
     def __init__(self, id_inscripcion, est_documento, id_actividad, estado, fecha_inscripcion):
         self.id_inscripcion = id_inscripcion

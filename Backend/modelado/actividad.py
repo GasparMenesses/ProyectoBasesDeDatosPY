@@ -1,4 +1,4 @@
-class actividad:
+class Actividad:
     def __init__ (self, id_actividad, nombre, id_disciplina, id_espacio, cupo_maximo,
                   dia_semana, horario_inicio, horario_fin, estado):
         self.id_actividad = id_actividad

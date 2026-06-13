@@ -1,4 +1,4 @@
-class asistencia:
+class Asistencia:
 
     def __init__(self, id_asistencia, id_inscripcion, fecha, asistio):
         self.id_asistencia = id_asistencia

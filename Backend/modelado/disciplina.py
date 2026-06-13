@@ -1,4 +1,4 @@
-class disciplina:
+class Disciplina:
     def __init__(self, id_disciplina, nombre):
         self.id_disciplina = id_disciplina
         self.nombre = nombre

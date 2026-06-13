@@ -1,4 +1,4 @@
-class estudiantes:
+class Estudiante:
     def __init__ (self, documento, nombre, apellido, correo_electronico, carrera, facultad):
         self.documento = documento
         self.nombre = nombre
