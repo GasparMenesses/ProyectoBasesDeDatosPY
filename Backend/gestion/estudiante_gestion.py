@@ -1,5 +1,6 @@
 from db_conn.conn import obtener_conexion
 from modelado.estudiante import Estudiante
+
 def listar_estudiantes():
     conexion = obtener_conexion()
     cursor = conexion.cursor()
