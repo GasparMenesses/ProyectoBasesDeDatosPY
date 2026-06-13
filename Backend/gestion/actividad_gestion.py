@@ -214,8 +214,3 @@ def eliminar_actividad(id_actividad):
             cursor.close()
         if conexion:
             conexion.close()
-    cursor.execute(sql, valores)
-    conexion.commit()
-
-    cursor.close()
-    conexion.close()

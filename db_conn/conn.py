@@ -4,6 +4,7 @@ import mysql.connector
 from mysql.connector import Error
 import time
 
+load_dotenv()
 def obtener_conexion():
     for i in range (4):
         try:

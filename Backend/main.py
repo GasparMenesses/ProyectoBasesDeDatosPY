@@ -13,10 +13,11 @@ except Exception as e:
 
 finally:
     cursor.close()
-    conexion.close() """
+    conexion.close()
 
 from flask import Flask, jsonify
 
 from asistencia_gestion import listar_asistencias, registrar_asistencia
 from disciplina gestion import listar_disciplinas, crear_disciplinas
+"""
 

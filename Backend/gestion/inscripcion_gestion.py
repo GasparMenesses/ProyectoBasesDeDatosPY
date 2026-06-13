@@ -159,9 +159,8 @@ def cancelar_inscripcion(id_inscripcion):
 
             if siguiente is not None:
                 cursor.execute("""
-                    UPDATE inscripcion
-                    SET estado = 'confirmada'
-                    WHERE id_inscripcion = %s
+                    DELETE FROM inscripcion
+                    WHERE id_inscripcion = %s       
                 """, (siguiente[0],))
                 print("Se promovió al siguiente estudiante de lista de espera.")
 
